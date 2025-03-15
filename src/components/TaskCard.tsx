@@ -39,7 +39,7 @@ const TaskCard = ({
       <div className="flex justify-between items-start">
         <h3 className={cn(
           "font-medium text-sm text-primary",
-          task.status === "done" && "line-through text-gray-400"
+          task.status === "done" && "line-through text-muted-foreground"
         )}>
           {task.title}
         </h3>
@@ -47,7 +47,7 @@ const TaskCard = ({
         {showOptions && (
           <div className="flex space-x-1">
             <button
-              className="p-1 text-gray-400 hover:text-blue-500 transition-colors"
+              className="p-1 text-muted-foreground hover:text-blue-500 transition-colors"
               onClick={(e) => {
                 e.stopPropagation();
                 onEdit(task);
@@ -57,7 +57,7 @@ const TaskCard = ({
               <Pencil size={16} />
             </button>
             <button
-              className="p-1 text-gray-400 hover:text-red-500 transition-colors"
+              className="p-1 text-muted-foreground hover:text-red-500 transition-colors"
               onClick={(e) => {
                 e.stopPropagation();
                 onDelete(task.id);
@@ -71,7 +71,7 @@ const TaskCard = ({
       </div>
       
       {task.description && (
-        <p className="text-xs text-gray-500 mt-2">{task.description}</p>
+        <p className="text-xs text-muted-foreground mt-2">{task.description}</p>
       )}
     </div>
   );

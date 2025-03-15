@@ -27,11 +27,25 @@ const TaskColumn = ({
 }: TaskColumnProps) => {
   const columnRef = useRef<HTMLDivElement>(null);
 
+  const getColumnColor = (id: TaskStatus) => {
+    switch (id) {
+      case "todo":
+        return "bg-kanban-todo";
+      case "inProgress":
+        return "bg-kanban-progress";
+      case "done":
+        return "bg-kanban-done";
+      default:
+        return "bg-kanban-todo";
+    }
+  };
+
   return (
     <div
       ref={columnRef}
       className={cn(
-        "kanban-column bg-white rounded-lg shadow-sm",
+        "kanban-column rounded-lg shadow-sm",
+        getColumnColor(column.id),
         isDraggingOver && "column-drop-active"
       )}
       onDragOver={onDragOver}
@@ -41,7 +55,7 @@ const TaskColumn = ({
         <h2 className="font-semibold text-primary">
           {column.title}
         </h2>
-        <span className="bg-gray-100 text-gray-600 text-xs px-2 py-1 rounded-full">
+        <span className="bg-background/25 text-foreground/80 text-xs px-2 py-1 rounded-full">
           {tasks.length}
         </span>
       </div>
@@ -65,8 +79,8 @@ const TaskColumn = ({
         ))}
         
         {tasks.length === 0 && (
-          <div className="flex items-center justify-center h-20 border border-dashed border-gray-200 rounded-lg mt-2">
-            <p className="text-xs text-gray-400">Nenhuma tarefa</p>
+          <div className="flex items-center justify-center h-20 border border-dashed border-border rounded-lg mt-2 text-muted-foreground">
+            <p className="text-xs">Nenhuma tarefa</p>
           </div>
         )}
       </div>

@@ -1,5 +1,4 @@
-
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect } from "react";
 import { KanbanData, Task, TaskStatus, columnTitles } from "@/types";
 import TaskColumn from "./TaskColumn";
 import TaskForm from "./TaskForm";
@@ -23,12 +22,10 @@ const KanbanBoard = () => {
   const [draggingOverColumn, setDraggingOverColumn] = useState<TaskStatus | null>(null);
   const { toast } = useToast();
 
-  // Load data from localStorage on initial render
   useEffect(() => {
     setData(getInitialData());
   }, []);
 
-  // Handle task creation
   const handleCreateTask = (task: { title: string; description: string; status: TaskStatus }) => {
     const updatedData = addTask(data, task);
     setData(updatedData);
@@ -38,7 +35,6 @@ const KanbanBoard = () => {
     });
   };
 
-  // Handle task update
   const handleUpdateTask = (taskId: string, updates: Partial<Task>) => {
     const updatedData = updateTask(data, taskId, updates);
     setData(updatedData);
@@ -48,7 +44,6 @@ const KanbanBoard = () => {
     });
   };
 
-  // Handle task deletion
   const handleDeleteTask = (taskId: string) => {
     const updatedData = deleteTask(data, taskId);
     setData(updatedData);
@@ -58,13 +53,11 @@ const KanbanBoard = () => {
     });
   };
 
-  // Open task form for editing
   const handleEditTask = (task: Task) => {
     setEditingTask(task);
     setIsTaskFormOpen(true);
   };
 
-  // Handle form submission (create or update)
   const handleTaskFormSubmit = (task: { title: string; description: string; status: TaskStatus }) => {
     if (editingTask) {
       handleUpdateTask(editingTask.id, task);
@@ -74,18 +67,15 @@ const KanbanBoard = () => {
     }
   };
 
-  // Close the task form
   const handleCloseTaskForm = () => {
     setIsTaskFormOpen(false);
     setEditingTask(null);
   };
 
-  // Open delete confirmation
   const handleDeletePrompt = (taskId: string) => {
     setTaskToDelete(taskId);
   };
 
-  // Confirm task deletion
   const handleConfirmDelete = () => {
     if (taskToDelete) {
       handleDeleteTask(taskToDelete);
@@ -93,12 +83,10 @@ const KanbanBoard = () => {
     }
   };
 
-  // Cancel task deletion
   const handleCancelDelete = () => {
     setTaskToDelete(null);
   };
 
-  // Handle drag start
   const handleDragStart = (taskId: string, status: TaskStatus, index: number) => {
     setDragState({
       taskId,
@@ -107,23 +95,19 @@ const KanbanBoard = () => {
     });
   };
 
-  // Handle drag over
   const handleDragOver = (e: React.DragEvent<HTMLDivElement>, status: TaskStatus) => {
     e.preventDefault();
     setDraggingOverColumn(status);
   };
 
-  // Handle drop
   const handleDrop = (destinationStatus: TaskStatus) => {
     if (!dragState) return;
     
     const { taskId, sourceStatus, sourceIndex } = dragState;
     
-    // Get the tasks in the destination column
     const destinationTasks = data.columns[destinationStatus].taskIds.map(id => data.tasks[id]);
     const destinationIndex = destinationTasks.length; // By default, drop at the end
     
-    // Update the data
     const updatedData = moveTask(
       data,
       taskId,
@@ -135,7 +119,6 @@ const KanbanBoard = () => {
     setDragState(null);
     setDraggingOverColumn(null);
     
-    // Show a toast notification only if the status changed
     if (sourceStatus !== destinationStatus) {
       toast({
         title: "Tarefa movida",

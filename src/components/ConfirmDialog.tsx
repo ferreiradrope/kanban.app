@@ -12,8 +12,8 @@ interface ConfirmDialogProps {
 const ConfirmDialog = ({
   onConfirm,
   onCancel,
-  title = "Are you sure?",
-  message = "Are you sure you want to delete this task?",
+  title = "Tem certeza?",
+  message = "Tem certeza que deseja excluir esta tarefa?",
 }: ConfirmDialogProps) => {
   const dialogRef = useRef<HTMLDivElement>(null);
   const cancelButtonRef = useRef<HTMLButtonElement>(null);
@@ -63,13 +63,13 @@ const ConfirmDialog = ({
             onClick={onCancel}
             className="px-4 py-2 text-sm border border-input rounded-md hover:bg-muted transition-colors focus-ring"
           >
-            Cancel
+            Cancelar
           </button>
           <button
             onClick={onConfirm}
             className="px-4 py-2 text-sm bg-destructive text-destructive-foreground rounded-md hover:opacity-90 transition-opacity focus-ring"
           >
-            Delete
+            Excluir
           </button>
         </div>
       </div>

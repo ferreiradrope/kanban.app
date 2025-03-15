@@ -58,7 +58,7 @@ const TaskForm = ({
     e.preventDefault();
     
     if (!title.trim()) {
-      setError("Title is required");
+      setError("O título é obrigatório");
       return;
     }
 
@@ -71,12 +71,12 @@ const TaskForm = ({
       <div className="task-form-container" ref={formRef}>
         <div className="flex justify-between items-center mb-4">
           <h2 className="text-xl font-medium">
-            {isEditing ? "Edit Task" : "Create New Task"}
+            {isEditing ? "Editar Tarefa" : "Criar Nova Tarefa"}
           </h2>
           <button 
             onClick={onClose}
             className="p-1 rounded-full hover:bg-muted transition-colors focus-ring"
-            aria-label="Close"
+            aria-label="Fechar"
           >
             <X size={20} />
           </button>
@@ -88,7 +88,7 @@ const TaskForm = ({
               htmlFor="title" 
               className="block text-sm font-medium mb-1"
             >
-              Title <span className="text-destructive">*</span>
+              Título <span className="text-destructive">*</span>
             </label>
             <input
               ref={titleInputRef}
@@ -100,7 +100,7 @@ const TaskForm = ({
                 if (error) setError("");
               }}
               className="w-full px-3 py-2 border border-input rounded-md focus:outline-none focus:ring-2 focus:ring-primary focus:ring-opacity-50"
-              placeholder="Task title"
+              placeholder="Título da tarefa"
               maxLength={100}
             />
             {error && <p className="mt-1 text-xs text-destructive">{error}</p>}
@@ -111,14 +111,14 @@ const TaskForm = ({
               htmlFor="description" 
               className="block text-sm font-medium mb-1"
             >
-              Description
+              Descrição
             </label>
             <textarea
               id="description"
               value={description}
               onChange={(e) => setDescription(e.target.value)}
               className="w-full px-3 py-2 border border-input rounded-md focus:outline-none focus:ring-2 focus:ring-primary focus:ring-opacity-50 min-h-[100px]"
-              placeholder="Add description (optional)"
+              placeholder="Adicione uma descrição (opcional)"
             />
           </div>
 
@@ -136,9 +136,9 @@ const TaskForm = ({
                 onChange={(e) => setStatus(e.target.value as TaskStatus)}
                 className="w-full px-3 py-2 border border-input rounded-md focus:outline-none focus:ring-2 focus:ring-primary focus:ring-opacity-50"
               >
-                <option value="todo">To Do</option>
-                <option value="inProgress">In Progress</option>
-                <option value="done">Done</option>
+                <option value="todo">A Fazer</option>
+                <option value="inProgress">Em Progresso</option>
+                <option value="done">Concluído</option>
               </select>
             </div>
           )}
@@ -149,13 +149,13 @@ const TaskForm = ({
               onClick={onClose}
               className="px-4 py-2 text-sm border border-input rounded-md hover:bg-muted transition-colors focus-ring"
             >
-              Cancel
+              Cancelar
             </button>
             <button
               type="submit"
               className="px-4 py-2 text-sm bg-primary text-primary-foreground rounded-md hover:opacity-90 transition-opacity focus-ring"
             >
-              {isEditing ? "Save Changes" : "Create Task"}
+              {isEditing ? "Salvar Alterações" : "Criar Tarefa"}
             </button>
           </div>
         </form>
