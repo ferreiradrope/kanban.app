@@ -71,6 +71,9 @@ export default {
 					cardBorder: 'hsl(var(--kanban-card-border))',
 				}
 			},
+			borderColor: {
+				'kanban-card-border': 'hsl(var(--kanban-card-border))'
+			},
 			borderRadius: {
 				lg: 'var(--radius)',
 				md: 'calc(var(--radius) - 2px)',
