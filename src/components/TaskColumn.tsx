@@ -27,36 +27,21 @@ const TaskColumn = ({
 }: TaskColumnProps) => {
   const columnRef = useRef<HTMLDivElement>(null);
 
-  // Determine column background color based on column ID
-  const getColumnBgColor = () => {
-    switch (column.id) {
-      case 'todo':
-        return 'bg-kanban-todo';
-      case 'inProgress':
-        return 'bg-kanban-progress';
-      case 'done':
-        return 'bg-kanban-done';
-      default:
-        return 'bg-muted';
-    }
-  };
-
   return (
     <div
       ref={columnRef}
       className={cn(
-        "kanban-column",
-        getColumnBgColor(),
+        "kanban-column bg-white rounded-lg shadow-sm",
         isDraggingOver && "column-drop-active"
       )}
       onDragOver={onDragOver}
       onDrop={() => onDrop(column.id)}
     >
       <div className="flex items-center justify-between mb-4">
-        <h2 className="font-semibold text-sm uppercase tracking-wide text-primary">
+        <h2 className="font-semibold text-primary">
           {column.title}
         </h2>
-        <span className="bg-muted text-muted-foreground text-xs px-2 py-1 rounded-full">
+        <span className="bg-gray-100 text-gray-600 text-xs px-2 py-1 rounded-full">
           {tasks.length}
         </span>
       </div>
@@ -80,8 +65,8 @@ const TaskColumn = ({
         ))}
         
         {tasks.length === 0 && (
-          <div className="flex items-center justify-center h-20 border border-dashed border-muted rounded-lg mt-2">
-            <p className="text-xs text-muted-foreground">No tasks</p>
+          <div className="flex items-center justify-center h-20 border border-dashed border-gray-200 rounded-lg mt-2">
+            <p className="text-xs text-gray-400">Nenhuma tarefa</p>
           </div>
         )}
       </div>

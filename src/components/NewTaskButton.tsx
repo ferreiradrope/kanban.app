@@ -26,12 +26,15 @@ const NewTaskButton = ({ onClick }: NewTaskButtonProps) => {
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
       style={{
-        transform: isHovered ? 'scale(1.1)' : 'scale(1)',
+        transform: isHovered ? 'scale(1.05)' : 'scale(1)',
         transition: 'transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.5s ease, translate 0.5s ease'
       }}
-      aria-label="Add new task"
+      aria-label="Adicionar nova tarefa"
     >
-      <Plus size={24} />
+      <span className="flex items-center gap-2">
+        <Plus size={20} />
+        <span className="text-sm font-medium">Nova Tarefa</span>
+      </span>
     </button>
   );
 };

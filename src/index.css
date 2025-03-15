@@ -1,4 +1,3 @@
-
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -96,7 +95,7 @@
   }
 
   body {
-    @apply bg-background text-foreground font-inter antialiased;
+    @apply bg-gray-50 text-foreground font-inter antialiased;
     font-feature-settings: "cv02", "cv03", "cv04", "cv11";
   }
 
@@ -115,7 +114,7 @@
 
 @layer components {
   .task-card {
-    @apply bg-kanban-card border border-kanban-cardBorder rounded-lg p-4 mb-3 shadow-sm hover:shadow transition-all duration-300;
+    @apply bg-white border border-gray-100 rounded-lg p-4 mb-3 shadow-sm hover:shadow transition-all duration-300;
     transition-timing-function: var(--bounce-gentle);
   }
 
@@ -127,14 +126,15 @@
   .kanban-column {
     @apply p-4 rounded-lg h-full flex flex-col;
     min-height: 500px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
   }
 
   .column-drop-active {
-    @apply ring-2 ring-primary ring-opacity-50;
+    @apply ring-2 ring-blue-500 ring-opacity-50;
   }
 
   .new-task-btn {
-    @apply fixed bottom-6 right-6 w-14 h-14 bg-primary text-white rounded-full shadow-lg flex items-center justify-center transition-transform duration-300 hover:scale-110;
+    @apply fixed bottom-6 right-6 bg-blue-600 text-white rounded-full shadow-lg flex items-center justify-center transition-transform duration-300 px-4 py-2 hover:bg-blue-700;
     transition-timing-function: var(--bounce-gentle);
   }
 
@@ -170,7 +170,6 @@
     }
   }
 
-  /* Custom scrollbar */
   .custom-scrollbar::-webkit-scrollbar {
     width: 6px;
   }
@@ -188,12 +187,10 @@
   }
 }
 
-/* Focus styles */
 .focus-ring {
   @apply focus:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-opacity-75;
 }
 
-/* Font imports */
 @font-face {
   font-family: 'Inter';
   font-style: normal;

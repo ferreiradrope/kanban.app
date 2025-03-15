@@ -1,6 +1,6 @@
 
 import { useState, useEffect, useRef } from "react";
-import { KanbanData, Task, TaskStatus } from "@/types";
+import { KanbanData, Task, TaskStatus, columnTitles } from "@/types";
 import TaskColumn from "./TaskColumn";
 import TaskForm from "./TaskForm";
 import ConfirmDialog from "./ConfirmDialog";
@@ -33,8 +33,8 @@ const KanbanBoard = () => {
     const updatedData = addTask(data, task);
     setData(updatedData);
     toast({
-      title: "Task created",
-      description: "Your task has been created successfully.",
+      title: "Tarefa criada",
+      description: "Sua tarefa foi criada com sucesso.",
     });
   };
 
@@ -43,8 +43,8 @@ const KanbanBoard = () => {
     const updatedData = updateTask(data, taskId, updates);
     setData(updatedData);
     toast({
-      title: "Task updated",
-      description: "Your task has been updated successfully.",
+      title: "Tarefa atualizada",
+      description: "Sua tarefa foi atualizada com sucesso.",
     });
   };
 
@@ -53,8 +53,8 @@ const KanbanBoard = () => {
     const updatedData = deleteTask(data, taskId);
     setData(updatedData);
     toast({
-      title: "Task deleted",
-      description: "Your task has been deleted.",
+      title: "Tarefa excluída",
+      description: "Sua tarefa foi excluída.",
     });
   };
 
@@ -137,25 +137,15 @@ const KanbanBoard = () => {
     
     // Show a toast notification only if the status changed
     if (sourceStatus !== destinationStatus) {
-      const statusNames = {
-        todo: "To Do",
-        inProgress: "In Progress",
-        done: "Done"
-      };
-      
       toast({
-        title: "Task moved",
-        description: `Task moved to ${statusNames[destinationStatus]}.`,
+        title: "Tarefa movida",
+        description: `Tarefa movida para ${columnTitles[destinationStatus]}.`,
       });
     }
   };
 
   return (
     <div className="h-full flex flex-col">
-      <div className="py-6 px-4 md:px-6 flex justify-between items-center border-b">
-        <h1 className="text-xl md:text-2xl font-semibold">Kanban Board</h1>
-      </div>
-      
       <div className="flex-grow p-4 md:p-6 overflow-auto">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6 h-full">
           {data.columnOrder.map(columnId => {
@@ -165,7 +155,10 @@ const KanbanBoard = () => {
             return (
               <TaskColumn
                 key={column.id}
-                column={column}
+                column={{
+                  ...column,
+                  title: columnTitles[column.id]
+                }}
                 tasks={tasks}
                 onEditTask={handleEditTask}
                 onDeleteTask={handleDeletePrompt}

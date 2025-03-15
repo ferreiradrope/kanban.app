@@ -20,3 +20,10 @@ export interface KanbanData {
   columns: Record<string, Column>;
   columnOrder: TaskStatus[];
 }
+
+// Tradução dos títulos das colunas
+export const columnTitles: Record<TaskStatus, string> = {
+  todo: 'A Fazer',
+  inProgress: 'Em Progresso',
+  done: 'Concluído'
+};

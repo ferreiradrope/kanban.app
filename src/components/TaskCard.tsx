@@ -1,7 +1,7 @@
 
 import { Task } from "@/types";
 import { useState, useRef } from "react";
-import { MoreHorizontal, Pencil, Trash2 } from "lucide-react";
+import { Pencil, Trash2 } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 interface TaskCardProps {
@@ -22,84 +22,56 @@ const TaskCard = ({
   dragHandleProps,
 }: TaskCardProps) => {
   const [showOptions, setShowOptions] = useState(false);
-  const optionsRef = useRef<HTMLDivElement>(null);
-
-  const handleClickOutside = (e: MouseEvent) => {
-    if (optionsRef.current && !optionsRef.current.contains(e.target as Node)) {
-      setShowOptions(false);
-    }
-  };
-
-  const toggleOptions = (e: React.MouseEvent) => {
-    e.stopPropagation();
-    setShowOptions(!showOptions);
-    
-    if (!showOptions) {
-      // Add event listener when opening
-      document.addEventListener('click', handleClickOutside);
-    } else {
-      // Remove event listener when closing
-      document.removeEventListener('click', handleClickOutside);
-    }
-  };
+  const cardRef = useRef<HTMLDivElement>(null);
 
   return (
     <div 
-      ref={forwardedRef}
+      ref={forwardedRef || cardRef}
       className={cn(
-        "task-card focus-ring",
+        "task-card focus-ring cursor-grab",
         isDragging && "dragging",
         task.status === 'done' && "opacity-80"
       )}
+      onMouseEnter={() => setShowOptions(true)}
+      onMouseLeave={() => setShowOptions(false)}
       {...dragHandleProps}
     >
-      <div className="flex justify-between items-start mb-2">
+      <div className="flex justify-between items-start">
         <h3 className={cn(
           "font-medium text-sm text-primary",
-          task.status === "done" && "line-through text-muted-foreground"
+          task.status === "done" && "line-through text-gray-400"
         )}>
           {task.title}
         </h3>
-        <div className="relative" ref={optionsRef}>
-          <button
-            className="p-1 rounded-full text-muted-foreground hover:text-primary transition-colors focus-ring"
-            onClick={toggleOptions}
-            aria-label="Task options"
-          >
-            <MoreHorizontal size={16} />
-          </button>
-          
-          {showOptions && (
-            <div className="absolute right-0 mt-1 py-1 bg-popover border border-border rounded-md shadow-md animate-scale-in z-10 w-32">
-              <button
-                className="w-full text-left px-3 py-1.5 text-sm flex items-center gap-2 hover:bg-muted transition-colors"
-                onClick={() => {
-                  setShowOptions(false);
-                  onEdit(task);
-                  document.removeEventListener('click', handleClickOutside);
-                }}
-              >
-                <Pencil size={14} />
-                <span>Edit</span>
-              </button>
-              <button
-                className="w-full text-left px-3 py-1.5 text-sm flex items-center gap-2 hover:bg-muted text-destructive transition-colors"
-                onClick={() => {
-                  setShowOptions(false);
-                  onDelete(task.id);
-                  document.removeEventListener('click', handleClickOutside);
-                }}
-              >
-                <Trash2 size={14} />
-                <span>Delete</span>
-              </button>
-            </div>
-          )}
-        </div>
+        
+        {showOptions && (
+          <div className="flex space-x-1">
+            <button
+              className="p-1 text-gray-400 hover:text-blue-500 transition-colors"
+              onClick={(e) => {
+                e.stopPropagation();
+                onEdit(task);
+              }}
+              aria-label="Editar tarefa"
+            >
+              <Pencil size={16} />
+            </button>
+            <button
+              className="p-1 text-gray-400 hover:text-red-500 transition-colors"
+              onClick={(e) => {
+                e.stopPropagation();
+                onDelete(task.id);
+              }}
+              aria-label="Excluir tarefa"
+            >
+              <Trash2 size={16} />
+            </button>
+          </div>
+        )}
       </div>
       
       {task.description && (
-        <p className="text-xs text-muted-foreground">{task.description}</p>
+        <p className="text-xs text-gray-500 mt-2">{task.description}</p>
       )}
     </div>
   );
