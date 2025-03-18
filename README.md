@@ -27,7 +27,7 @@ git clone <URL_DO_REPOSITÓRIO>
 cd <NOME_DO_PROJETO>
 
 # 3. Instale as dependências necessárias
-npm i
+npm install
 
 # 4. Inicie o servidor de desenvolvimento
 npm run dev
