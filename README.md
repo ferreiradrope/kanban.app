@@ -1,4 +1,3 @@
-
 # Projeto Kanban
 
 ## Tecnologias Utilizadas
@@ -17,7 +16,7 @@ Este projeto foi construído com:
 
 Para executar este projeto, você precisa ter o Node.js e npm instalados - [instale com nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
 
-### Passos para execução
+### Passos para execução com Node.js
 
 ```sh
 # 1. Clone o repositório
@@ -27,13 +26,22 @@ git clone <URL_DO_REPOSITÓRIO>
 cd <NOME_DO_PROJETO>
 
 # 3. Instale as dependências necessárias
-npm i
+npm install
 
 # 4. Inicie o servidor de desenvolvimento
 npm run dev
 ```
 
 O projeto estará disponível em `http://localhost:8080`
+
+### Passos para execução com o Docker
+
+```sh
+# 1. Inicie usando o comando abaixo
+docker run -p 8080:3000 pedrohferreira98/kanban-app:latest
+```
+
+O projeto estará disponível em http://localhost:8080
 
 ## Funcionalidades
 
