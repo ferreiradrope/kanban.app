@@ -12,7 +12,13 @@ Este projeto foi construído com:
 
 ## Como executar o projeto
 
-### Pré-requisitos
+🌍 Acesse Online
+
+O projeto está disponível no seguinte link:
+
+🔗 https://kanban-app-beta.vercel.app/
+
+### Pré-requisitos para executar localmente
 
 Para executar este projeto, você precisa ter o Node.js e npm instalados - [instale com nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
 
