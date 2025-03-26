@@ -1,5 +1,5 @@
-# Estágio de construção
-FROM node:18-alpine AS builder
+# Estágio de construção - Usamos imagem base diferente para evitar problemas com Rollup
+FROM node:18 AS builder
 WORKDIR /app
 
 # Cache de dependências
@@ -10,7 +10,7 @@ RUN npm ci --omit=dev
 COPY . .
 RUN npm run build
 
-# Estágio de produção
+# Estágio de produção - Aqui podemos usar Alpine
 FROM node:18-alpine AS runner
 WORKDIR /app
 
