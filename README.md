@@ -40,7 +40,7 @@ Para executar este projeto, você precisa ter o Docker instalado - https://www.d
 
 ```sh
 # 1. Inicie usando o comando abaixo
-docker run -p 8080:3000 pedrohferreira98/kanban-app:latest
+docker run -p 8080:3000 pedrohferreira98/kanban.app:latest
 ```
 
 O projeto estará disponível em http://localhost:8080
