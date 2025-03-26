@@ -2,11 +2,11 @@
 FROM node:18 AS builder
 WORKDIR /app
 
-# 1. Primeiro instalamos apenas as dependências necessárias para o build
+# Instalar todas as dependências (incluindo dev)
 COPY package.json package-lock.json ./
-RUN npm install --include=dev
+RUN npm install
 
-# 2. Copiar o restante dos arquivos e fazer o build
+# Fazer o build
 COPY . .
 RUN npm run build
 
@@ -14,15 +14,14 @@ RUN npm run build
 FROM node:18-alpine AS runner
 WORKDIR /app
 
-# Copiar apenas o necessário para produção
+# Copiar apenas o necessário
+COPY --from=builder /app/package.json .
 COPY --from=builder /app/dist ./dist
 COPY --from=builder /app/public ./public
-COPY --from=builder /app/node_modules ./node_modules
-COPY --from=builder /app/package.json ./package.json
 
-# Instalar apenas dependências de produção
-RUN npm prune --production
+# Instalar APENAS o vite como dependência global (necessário para preview)
+RUN npm install -g vite
 
-# Expor porta e comando de execução
+# Expor porta e configurar comando
 EXPOSE 3000
-CMD ["npm", "run", "preview"]
+CMD ["vite", "preview", "--host", "0.0.0.0", "--port", "3000"]
