@@ -1,20 +1,25 @@
-# Usa uma imagem base do Node.js
-FROM node:18-alpine
-
-# Define o diretório de trabalho dentro do container
+# Estágio de construção
+FROM node:18-alpine AS builder
 WORKDIR /app
 
-# Copia os arquivos do projeto para dentro do container
-COPY package*.json ./
+# Cache de dependências
+COPY package.json package-lock.json ./
+RUN npm ci --omit=dev
 
-# Instala as dependências
-RUN npm install
-
-# Copia o restante do código para o container
+# Copiar e construir o projeto
 COPY . .
+RUN npm run build
 
-# Expõe a porta da aplicação
+# Estágio de produção
+FROM node:18-alpine AS runner
+WORKDIR /app
+
+# Copiar apenas o necessário
+COPY --from=builder /app/node_modules ./node_modules
+COPY --from=builder /app/dist ./dist
+COPY --from=builder /app/public ./public
+COPY --from=builder /app/package.json ./package.json
+
+# Expor porta e comando de execução
 EXPOSE 3000
-
-# Comando para iniciar a aplicação
-CMD ["npm", "start"]
+CMD ["npm", "run", "preview"]
